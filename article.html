@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./anime.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="section__1">
+      <header> 
+        <h1>Manganime</h1>
+        
+        
+  
+        <div>
+          <nav>
+          <ul>
+            <a href="">Home</a>
+            <a href="">About us</a>
+            <a href="">Constact</a>
+          </ul>
+        </div>
+        <div>  
+          <figure>
+            <img src="./img/recherche_svg.png" alt="recherche.icon" width="34px" height="34px">
+          </figure>
+          
+
+          <button class="login">Log in</button>
+          <button class="signus">Sign us</button> 
+        </div>
+        
+       
+      </header>
+      <div class="Accueil">
+        <div class="presentation">
+          <h1>It's time for <strong> Anime</strong></h1>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+            ipsa odit quisquam tempora, voluptate modi distinctio eveniet ipsum
+            saepe nihil quis delectus deserunt molestias doloribus corporis quam
+            atque! Minima, fuga.
+          </p>
+          <div class="button">
+            <button class="login">Log in</button>
+            <button class="signus">Sign us</button>
+          </div>
+        </div>
+        <div class="carroussel__1"></div>
+        <div class="suivant"><button class="suivant__btn">></button></div>
+      </div>
+    </section>
+    <section>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </section>
+    <div class="choix">
+        <div>
+          <div><h2>slice of life</h2></div>
+        <div><h2>boys of love</h2></div>
+        </div>
+        <div>
+          <div><h2>slice of life</h2></div>
+        <div><h2>boys of love</h2></div>
+        </div>
+        
+
+    </div>
+    <section class="section__2">
+      
+       <h1><strong>Lecture</strong></h1></br>
+      
+      <div class="carroussel__2">
+       
+      </div>
+      <button class="suivant__btn__2">next></button>
+    </section>
+  </section>
+  <section class="section__3">
+     <h1><strong>Anime</strong></h1></br>
+    
+    <div class="carroussel__3">
+     
+    </div>
+    <button class="suivant__btn__3">next></button>
+  </section>
+    
+    <script>
+      let carrousel_1 = document.querySelector(".carroussel__1");
+      let carrousel__2 = document.querySelector(".carroussel__2");
+      let carrousel__3= document.querySelector(".carroussel__3");
+      let suivant = document.querySelector(".suivant__btn");
+      let prochain = document.querySelector(".suivant__btn__2");
+      let prochain_2= document.querySelector(".suivant__btn__3");
+      let po=document.querySelectorAll("img");
+      let pa=document.querySelector("p");
+      let next = 0;
+      let move;
+      let pit;
+      let move_3;
+
+      fetch("https://api.jikan.moe/v4/manga ")
+        .then(function (reponse) {
+          console.log(reponse);
+          return reponse.json();
+        })
+        .then(function (yolo) {
+          console.log(yolo.data[0].title);
+          console.log(yolo.data[0].images.jpg.image_url);
+
+          for (let i = 0; i < yolo.data.length; i++) {
+            let dove = document.createElement("div");
+            move = document.querySelectorAll(".carroussel__1 div");
+            let image = document.createElement("img");
+            let h2 = document.createElement("h2");
+            h2.style.color = "white";
+            h2.style.fontSize = 16 + "px";
+
+            carrousel_1.appendChild(dove);
+            dove.appendChild(image);
+            dove.appendChild(h2);
+
+            image.setAttribute("src", yolo.data[i].images.jpg.image_url);
+            h2.textContent = yolo.data[i].title;
+            console.log(move);
+          }
+          suivant.addEventListener("click", function () {
+            next -= 250;
+            console.log(next);
+            move[0].style.marginLeft = next + "px";
+            if (next === -5750) {
+              next = 0;
+            }
+          });
+        });
+      fetch("https://api.jikan.moe/v4/manga?q=spring")
+        .then(function (reponses) {
+          console.log(reponses);
+          return reponses.json();
+        })
+        .then(function (yulu) {
+          console.log(yulu);
+          console.log(yulu.data[0].title);
+          console.log(yulu.data[0].images.webp.image_url);
+
+          for (let i = 0; i < yulu.data.length; i++) {
+            let dave = document.createElement("div");
+            pit = document.querySelectorAll(".carroussel__2 div");
+            let image = document.createElement("img");
+
+            carrousel__2.appendChild(dave);
+            dave.appendChild(image);
+
+            image.setAttribute("src", yulu.data[i].images.jpg.image_url);
+
+            console.log(pit);
+          }
+          prochain.addEventListener("click", function () {
+            next -= 250;
+            console.log(next);
+            pit[0].style.marginLeft = next + "px";
+            if (next === -550) {
+              next = 0;
+            }
+          });
+        });
+        fetch("https://api.jikan.moe/v4/anime?q=spring&sfw")
+        .then(function (response) {
+          console.log(response);
+          return response.json();
+        })
+        .then(function (yala) {
+          console.log(yala);
+          console.log(yala.data[0].synopsis);
+          console.log(yala.data[0].title);
+          console.log(yala.data[0].images.webp.image_url);
+
+          for (let i = 0; i < yala.data.length; i++) {
+            let duve = document.createElement("div");
+            move_3 = document.querySelectorAll(".carroussel__3 div");
+            let image = document.createElement("img");
+            let p = document.createElement("p");
+
+            carrousel__3.appendChild(duve);
+            duve.appendChild(image);
+            duve.appendChild(p);
+
+            image.setAttribute("src", yala.data[i].images.jpg.image_url);
+            p.textContent=yala.data[i].synopsis;
+            console.log(move_3);
+          }
+          image.addEventListener('click',function(){
+            let pot=document.createElement("div");
+            pot.style.position="absolute";
+            pot.style.top="0";
+            pot.sty
+          })
+          prochain_2.addEventListener("click", function () {
+            next -= 250;
+            console.log(next);
+            move_3[0].style.marginLeft = next + "px";
+            if (next === -550) {
+              next = 0;
+            }
+          });
+        });
+        po.addEventListener('hover', function(){
+          pa.style.display="block";
+
+        })
+
+    </script>
+  </body>
+</html>
